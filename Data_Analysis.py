@@ -92,3 +92,79 @@ df.describe(include="object")
 #Top: Which information shows with more frequecy
 #Freq: Cal. of the frequency (How many times the top value repeat)
 
+###### Class 2 ######
+
+# Clean and prepare the data
+
+# Check for missing (null) values across the entire DataFrame
+df.isnull()
+
+# Count the total number of missing values per column
+df.isnull().sum()
+
+# Display all unique values in the 'ano' column
+df["ano"].unique()
+
+# Show all rows that contain at least one missing value
+df[df.isnull().any(axis=1)]
+
+# Creating a new DataFrame (test example 1)
+import numpy as np  # Used for numerical operations (in this case, to represent missing values with np.nan)
+
+df_salarios = pd.DataFrame({
+    'nome': ['Ana', 'Bruno', 'Carlos', 'Daniele', 'Val'],  # column names and values
+    'salario': [4000, np.nan, 5000, np.nan, 100000]       # np.nan represents missing values
+})
+
+# Creates a new column where missing salary values are replaced
+# with the mean salary, rounded to two decimal places
+df_salarios['salario_media'] = df_salarios['salario'].fillna(
+    df_salarios['salario'].mean().round(2)
+)
+
+df_salarios
+
+# Creates a new column where missing salary values are replaced
+# with the median salary, rounded to two decimal places
+df_salarios['salario_mediana'] = df_salarios['salario'].fillna(
+    df_salarios['salario'].median().round(2)
+)
+
+df_salarios
+
+# Creating a new DataFrame (test example 2)
+df_temperaturas = pd.DataFrame({
+    'dia': ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'],  # days of the week
+    'temperatura': [30, np.nan, np.nan, 28, 27]              # missing temperature values
+})
+
+# ffill (forward fill): fills missing values using the last previously available value
+df_temperaturas['preenchido_ffill'] = df_temperaturas['temperatura'].ffill()
+df_temperaturas
+
+# bfill (backward fill): fills missing values using the next available value
+df_temperaturas['preenchido_bfill'] = df_temperaturas['temperatura'].bfill()
+df_temperaturas
+
+# Creating a new DataFrame (test example 3)
+df_cidades = pd.DataFrame({
+    'nome': ['Ana', 'Bruno', 'Carlos', 'Daniele', 'Val'],  # column names and values
+    'cidade': ['São Paulo', np.nan, 'Curitiba', np.nan, 'Belém']  # missing cities values
+})
+
+# Fill missing city values with a default label
+df_cidades['cidade preenchida'] = df_cidades['cidade'].fillna('Não Informado')
+
+#Exiting examples and backing to main df!!!!!
+
+# Remove all rows containing at least one missing value
+df_limpo = df.dropna()
+
+# Verify that no missing values remain
+df_limpo.isnull().sum()
+
+# Convert the 'ano' column to integer type
+df_limpo = df_limpo.assign(ano=df_limpo['ano'].astype('int64'))
+
+
+
