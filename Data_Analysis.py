@@ -2,6 +2,7 @@ import pandas as pd
 
 #Import data archive
 #Use data .read_[Type]("Link")
+#Data base downloaded from Kaggle
 df = pd.read_csv("https://raw.githubusercontent.com/guilhermeonrails/data-jobs/refs/heads/main/salaries.csv")
 
 df.head() #Read entire table
@@ -18,20 +19,69 @@ print("Number of Columns: ", column) #saving numbers into variable and print
 
 df.columns #Shows you the name of all columns in your DF
 
-#Create a dictionary for you df
-columns_dictionary_ptbr = {
-    "work_year": "ano_trabalho",
-    "experience_level": "nivel_experiencia",
-    "employment_type": "tipo_contrato",
+#Create a dictionary for your df columns
+dictionary_columns_ptbr = {
+    "work_year": "ano",
+    "experience_level": "senioridade",
+    "employment_type": "contrato",
     "job_title": "cargo",
     "salary": "salario",
-    "salary_currency": "moeda_salario",
-    "salary_in_usd": "salario_em_usd",
-    "employee_residence": "residencia_funcionario",
-    "remote_ratio": "percentual_remoto",
-    "company_location": "localizacao_empresa",
+    "salary_currency": "moeda",
+    "salary_in_usd": "usd",
+    "employee_residence": "residencia",
+    "remote_ratio": "remoto",
+    "company_location": "empresa",
     "company_size": "tamanho_empresa"
 }
 
 df = df.rename(columns=columns_dictionary_ptbr)
 df.columns
+
+df["senioridade"].value_counts() #Show you the resume of counts of itens in your column
+df["contrato"].value_counts() #Show you the resume of counts of itens in your column
+df["remoto"].value_counts() #Show you the resume of counts of itens in your column
+df["tamanho_empresa"].value_counts() #Show you the resume of counts of itens in your column
+
+#Create a dictionary for the data into the columns (Senioridade)
+dictionary_senioridade_column_ptbr = {
+    "SE": "Senior",
+    "MI": "Pleno",
+    "EN": "Junior",
+    "EX": "Executivo"
+}
+
+df["senioridade"] = df["senioridade"].replace(dictionary_senioridade_column_ptbr)
+df["senioridade"].value_counts()
+
+#Create a dictionary for the data into the columns (Contrato)
+dictionary_contrato_column_ptbr = {
+    "FT": "Tempo Integral",
+    "CT": "Tempo Parcial",
+    "PT": "Freela",
+    "FL": "Contrato"
+}
+
+df["contrato"] = df["contrato"].replace(dictionary_contrato_column_ptbr)
+df["contrato"].value_counts()
+
+#Create a dictionary for the data into the columns (tamanho_empresa)
+dictionary_tamanho_empresa_column_ptbr = {
+    "S": "Pequena",
+    "M": "Media",
+    "L": "Grande"
+}
+
+df["tamanho_empresa"] = df["tamanho_empresa"].replace(dictionary_tamanho_empresa_column_ptbr)
+df["tamanho_empresa"].value_counts()
+
+#Create a dictionary for the data into the columns (remoto)
+dictionary_remoto_column_ptbr = {
+    0: "Presencial",
+    50: "Remoto",
+    100: "Hibrido"
+}
+
+df["remoto"] = df["remoto"].replace(dictionary_remoto_column_ptbr)
+df["remoto"].value_counts()
+
+df.head()
