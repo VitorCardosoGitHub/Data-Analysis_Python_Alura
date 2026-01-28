@@ -85,3 +85,10 @@ df["remoto"] = df["remoto"].replace(dictionary_remoto_column_ptbr)
 df["remoto"].value_counts()
 
 df.head()
+
+df.describe(include="object")
+#Count: How many itens this column have in the total
+#Unique: How many unique values this category have (Executivo, pleno, senior, junior)
+#Top: Which information shows with more frequecy
+#Freq: Cal. of the frequency (How many times the top value repeat)
+
