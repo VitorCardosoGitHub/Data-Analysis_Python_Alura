@@ -18,3 +18,20 @@ print("Number of Columns: ", column) #saving numbers into variable and print
 
 df.columns #Shows you the name of all columns in your DF
 
+#Create a dictionary for you df
+columns_dictionary_ptbr = {
+    "work_year": "ano_trabalho",
+    "experience_level": "nivel_experiencia",
+    "employment_type": "tipo_contrato",
+    "job_title": "cargo",
+    "salary": "salario",
+    "salary_currency": "moeda_salario",
+    "salary_in_usd": "salario_em_usd",
+    "employee_residence": "residencia_funcionario",
+    "remote_ratio": "percentual_remoto",
+    "company_location": "localizacao_empresa",
+    "company_size": "tamanho_empresa"
+}
+
+df = df.rename(columns=columns_dictionary_ptbr)
+df.columns
